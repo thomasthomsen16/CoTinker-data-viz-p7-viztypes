@@ -1,7 +1,13 @@
 let chartView = [];
 
-
-
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('https://raw.githubusercontent.com/thomasthomsen16/dataset-p2/refs/heads/main/30000_spotify_songs.csv')
+      .then(response => response.text())
+      .then(csvData => {
+        const parsedData = parseCSV(csvData);
+        const sampleData = getRandomSample(parsedData, 60);
+      })
+    });
 // Function to parse CSV data into an array of objects
 function parseCSV(csvData) {
     const rows = csvData.split("\n").filter(row => row.trim() !== "");
