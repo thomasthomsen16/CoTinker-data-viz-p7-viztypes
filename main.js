@@ -1,5 +1,29 @@
 let chartView = [];
 
+
+
+// Function to parse CSV data into an array of objects
+function parseCSV(csvData) {
+    const rows = csvData.split("\n").filter(row => row.trim() !== "");
+    const header = rows[0].split(",").map(column => column.trim());
+  
+    return rows.slice(1).map(row => {
+      const values = row.split(",");
+  
+      if (values.length !== header.length) {
+        return null;
+      }
+  
+      let parsedRow = {};
+      header.forEach((column, index) => {
+        let value = values[index].trim();
+        parsedRow[column] = isNaN(value) ? value : parseFloat(value);
+      });
+  
+      return parsedRow;
+    }).filter(row => row !== null);
+  }
+
 function getRandomSample(data, sampleSize) {
     const requiredFields = ["tempo", "danceability", "energy", "valence", "speechiness", "instrumentalness", "duration_ms", "liveness", "release_year"];
     const validData = data.filter(row => requiredFields.every(field => row[field] !== null));
