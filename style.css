@@ -14,7 +14,7 @@ body {
     display: flex;
     align-items: left;
     height: 56px;
-    width: 100%;
+    width: device-width;
     padding-left: 8px;
 
 }
