@@ -23,6 +23,10 @@ document.getElementById("histogramBTN").addEventListener("click", function () {
     renderChart(histogramFunc, globalData);
 });
 
+document.getElementById("linechartBTN").addEventListener("click", function () {
+    renderChart(lineplotFunc, globalData);
+});
+
 // A function to render the chart
 // It takes a specification function and data as arguments
 function renderChart(specFunction, data) {
@@ -50,7 +54,7 @@ function scatterFunc(data) {
             "color": { "field": "playlist_genre", "type": "nominal" }
         }
     };
-}
+};
 
 function barchartFunc(data) {
     return {
@@ -65,7 +69,7 @@ function barchartFunc(data) {
             "y": { "aggregate": "count", "type": "quantitative" }
         }
     };
-}
+};
 
 function histogramFunc(data) {
     return {
@@ -78,6 +82,21 @@ function histogramFunc(data) {
         "encoding": {
             "x": { "field": "danceability", "type": "quantitative", bin: true },
             "y": { "aggregate": "count", "type": "quantitative" }
+        }
+    };
+};
+
+function lineplotFunc (data) {
+    return {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "A line plot with embedded data.",
+        "data": {
+            "values": data
+        },
+        "mark": "line",
+        "encoding": {
+            "x": { "field": "release_year", "type": "temporal" },
+            "y": { "field": "danceability", "type": "quantitative" }
         }
     };
 }
