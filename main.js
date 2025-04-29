@@ -82,7 +82,8 @@ function histogramFunc(data) {
         "mark": "bar",
         "encoding": {
             "x": { "field": "danceability", "type": "quantitative", bin: true },
-            "y": { "aggregate": "count", "type": "quantitative" }
+            "y": { "aggregate": "count", "type": "quantitative" },
+            "color": { "field": "playlist_genre", "type": "nominal" }
         }
     };
 };
