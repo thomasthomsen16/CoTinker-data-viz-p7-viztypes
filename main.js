@@ -67,7 +67,8 @@ function barchartFunc(data) {
         "mark": "bar",
         "encoding": {
             "x": { "field": "track_album_release_date", "type": "temporal" },
-            "y": { "aggregate": "count", "type": "quantitative" }
+            "y": { "aggregate": "count", "type": "quantitative" },
+            "color": { "field": "playlist_genre", "type": "nominal" }
         }
     };
 };
