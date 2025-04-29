@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const parsedData = parseCSV(csvData);
             globalData = getRandomSample(parsedData, 60);
             renderChart(scatterFunc, globalData);
+            console.log(globalData);
         })
 });
 
@@ -95,12 +96,11 @@ function lineplotFunc (data) {
         },
         "mark": "line",
         "encoding": {
-            "x": { "field": "release_year", "type": "temporal" },
+            "x": { "field": "track_album_release_date", "type": "temporal" },
             "y": { "field": "danceability", "type": "quantitative" }
         }
     };
-}
-
+} 
 
 // Function to parse CSV data into an array of objects
 function parseCSV(csvData) {
@@ -168,3 +168,4 @@ function getRandomSample(data, sampleSize) {
         .sort(() => 0.5 - Math.random()) // Shuffle
         .map((row, i) => ({ ...row, index: i })); // Assign index
 }
+
