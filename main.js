@@ -87,20 +87,21 @@ function histogramFunc(data) {
     };
 };
 
-function lineplotFunc (data) {
+function lineplotFunc(data) {
     return {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "description": "A line plot with embedded data.",
+        "description": "A line plot of danceability over time, grouped by genre.",
         "data": {
             "values": data
         },
         "mark": "line",
         "encoding": {
             "x": { "field": "track_album_release_date", "type": "temporal" },
-            "y": { "field": "danceability", "type": "quantitative" }
+            "y": { "field": "danceability", "type": "quantitative" },
+            "color": { "field": "playlist_genre", "type": "nominal" }
         }
     };
-} 
+}
 
 // Function to parse CSV data into an array of objects
 function parseCSV(csvData) {
