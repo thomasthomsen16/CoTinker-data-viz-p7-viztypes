@@ -25,6 +25,9 @@ function renderChart(specFunction, data) {
     const container = document.getElementById("chart-container");
     container.innerHTML = ''; // Optional: clear previous chart
     const spec = specFunction(data);
+    spec.width = 800;
+    spec.height = 400;
+    spec.autosize = { type: "fit", contains: "padding" };
     vegaEmbed('#chart-container', spec, { actions: false });
 };
 
