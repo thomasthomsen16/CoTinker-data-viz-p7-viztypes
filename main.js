@@ -97,7 +97,7 @@ function lineplotFunc(data) {
         },
         "mark": "line",
         "encoding": {
-            "x": { "field": "track_album_release_date", "type": "temporal" },
+            "x": { "field": "tempo", "type": "quantitative" },
             "y": { "field": "danceability", "type": "quantitative" },
             "color": { "field": "playlist_genre", "type": "nominal" }
         }
