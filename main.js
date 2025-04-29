@@ -19,6 +19,10 @@ document.getElementById("barchartBTN").addEventListener("click", function () {
     renderChart(barchartFunc, globalData);
 });
 
+document.getElementById("histogramBTN").addEventListener("click", function () {
+    renderChart(histogramFunc, globalData);
+});
+
 // A function to render the chart
 // It takes a specification function and data as arguments
 function renderChart(specFunction, data) {
@@ -57,7 +61,22 @@ function barchartFunc(data) {
         },
         "mark": "bar",
         "encoding": {
-            "x": { "field": "playlist_genre", "type": "nominal" },
+            "x": { "field": "danceability", "type": "nominal" },
+            "y": { "aggregate": "count", "type": "quantitative" }
+        }
+    };
+}
+
+function histogramFunc(data) {
+    return {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "A histogram with embedded data.",
+        "data": {
+            "values": data
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": { "field": "danceability", "type": "quantitative", bin: true },
             "y": { "aggregate": "count", "type": "quantitative" }
         }
     };
