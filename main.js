@@ -1,13 +1,41 @@
 let chartView = [];
+let globalData = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     fetch('https://raw.githubusercontent.com/thomasthomsen16/dataset-p2/refs/heads/main/30000_spotify_songs.csv')
       .then(response => response.text())
       .then(csvData => {
         const parsedData = parseCSV(csvData);
-        const sampleData = getRandomSample(parsedData, 60);
+        globalData = getRandomSample(parsedData, 60);
+        renderChart(scatterFunc, globalData);
       })
     });
+
+
+function renderChart (specFunction, data) {
+    const container = document.getElementById("chart-container");
+    container.innerHTML = ''; // Optional: clear previous chart
+    const spec = specFunction(data);
+    vegaEmbed('#chart-container', spec, { actions: false });
+};
+
+function scatterFunc(data) {
+    return {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "description": "A scatter plot with embedded data.",
+        "data": {
+            "values": data
+        },
+        "mark": "point",
+        "encoding": {
+            "x": {"field": "tempo", "type": "quantitative"},
+            "y": {"field": "danceability", "type": "quantitative"},
+            "color": {"field": "playlist_genre", "type": "nominal"}
+        }
+    };
+}
+
+
 // Function to parse CSV data into an array of objects
 function parseCSV(csvData) {
     const rows = csvData.split("\n").filter(row => row.trim() !== "");
