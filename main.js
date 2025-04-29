@@ -66,7 +66,7 @@ function barchartFunc(data) {
         },
         "mark": "bar",
         "encoding": {
-            "x": { "field": "danceability", "type": "nominal" },
+            "x": { "field": "track_album_release_date", "type": "temporal" },
             "y": { "aggregate": "count", "type": "quantitative" }
         }
     };
@@ -81,7 +81,7 @@ function histogramFunc(data) {
         },
         "mark": "bar",
         "encoding": {
-            "x": { "field": "danceability", "type": "quantitative", bin: true },
+            "x": { "field": "release_year", "type": "ordinal", bin: true },
             "y": { "aggregate": "count", "type": "quantitative" },
             "color": { "field": "playlist_genre", "type": "nominal" }
         }
@@ -122,14 +122,27 @@ function parseCSV(csvData) {
             parsedRow[column] = isNaN(value) ? value : parseFloat(value);
         });
 
+        // Extract release_year from track_album_release_date if it's a valid date string
+        if (parsedRow["track_album_release_date"]) {
+            const date = new Date(parsedRow["track_album_release_date"]);
+            if (!isNaN(date)) {
+                parsedRow["release_year"] = date.getFullYear();
+            } else {
+                parsedRow["release_year"] = null; // Fallback for invalid dates
+            }
+        } else {
+            parsedRow["release_year"] = null;
+        }
+
         return parsedRow;
     }).filter(row => row !== null);
 }
 
+
 // Function to get a random sample of data from the dataset
 // It ensures that the sample contains songs from different genres
 function getRandomSample(data, sampleSize) {
-    const requiredFields = ["tempo", "danceability", "energy", "valence", "speechiness", "instrumentalness", "duration_ms", "liveness", "release_year"];
+    const requiredFields = ["tempo", "danceability", "energy", "valence", "speechiness", "instrumentalness", "duration_ms", "liveness", "track_album_release_date"];
     const validData = data.filter(row => requiredFields.every(field => row[field] !== null));
 
     // Group songs by playlist_genre
