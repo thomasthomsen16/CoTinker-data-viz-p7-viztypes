@@ -14,18 +14,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 document.getElementById("scatterplotBTN").addEventListener("click", function () {
     renderChart(scatterFunc, globalData);
+    document.getElementById("plot-header").innerHTML = "Scatter plot";
 }
 );
 document.getElementById("barchartBTN").addEventListener("click", function () {
     renderChart(barchartFunc, globalData);
+    document.getElementById("plot-header").innerHTML = "Bar chart";
 });
 
 document.getElementById("histogramBTN").addEventListener("click", function () {
     renderChart(histogramFunc, globalData);
+    document.getElementById("plot-header").innerHTML = "Histogram";
 });
 
 document.getElementById("linechartBTN").addEventListener("click", function () {
     renderChart(lineplotFunc, globalData);
+    document.getElementById("plot-header").innerHTML = "Line chart";
 });
 
 // A function to render the chart
